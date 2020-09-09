@@ -2,7 +2,17 @@
 
 <h1>HOME</h1>
 <p><%=homeContent %> </p>
-<p><%=postDetails %> </p>
 
+
+<!-- forEach loop -->   <!--can also use for loop-->
+ <%postDetails.forEach(function(postDetail){ %>                        <!--function parameter consider singular form of array-->
+
+     <h1><%=postDetail.title%> </h2> 
+      <p><%=postDetail.content %> </p>
+     
+    
+<% }); %> 
+
+<!-- <p>postDetails[i].title,postDetails[i].content </p>                    when using for loop -->
 
 <%-include('partials/footer');-%>
