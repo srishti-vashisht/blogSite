@@ -50,19 +50,17 @@ app.get("/posts/:anotherPost",function(req,res){
    
   // }
 
-  const requestedTitle = _.lowerCase(req.params.anotherPost);                               /*converting requestedTitle to lowercase using lodash */
-
+  const requestedTitle = _.lowerCase(req.params.anotherPost);                               /*converting requestedTitle to lowercase using lodash,kebab case also removed,day-1,day1,Day1,day 1 all will be treated same */
+  
   posts.forEach(function(post){                                        /*Using for Each loop to loop into all title in posts arrray */
-    const storedTitle = _.lowerCase(post.title);                        /*converting storedTitle to lowercase using lodash , if Kebab case or whatsover format will get converted to lowercase*/
-
+    const storedTitle = _.lowerCase(post.title);                        /*converting storedTitle's to lowercase case using lodash,Converts string, as space separated words, to lower case.*/
          
-                             
-
-    if(requestedTitle===storedTitle)
+    if(requestedTitle === storedTitle)
     {
-      console.log("Match Found");
-      res.redirect("/");
-    }
+      res.render("post",{
+        requestedTitle:_.upperFirst(post.title),        /*using lodash library to convert first letter of title to upper case */
+        requestedContent:post.content});
+    }                       
   })
    
 })
@@ -73,7 +71,7 @@ app.post("/compose",function(req,res){
   
   var details={                                                     /*Javascript object */
     
-    title: req.body.blogTitle,
+    title: _.upperFirst(req.body.blogTitle),         /*_.upperFirst - converts the title's first letter to uppercase irrespective of what user has given,using lodash library*/
     content: req.body.blogContent
 
   }
